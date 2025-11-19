@@ -7,18 +7,18 @@ import (
 	"net/http"
 )
 
-type OllamaRequest struct {
+type OllamaRequestIntel struct {
 	Model  string `json:"model"`
 	Prompt string `json:"prompt"`
 	Stream bool   `json:"stream"`
 }
 
-type OllamaResponse struct {
+type OllamaResponseIntel struct {
 	Response string `json:"response"`
 }
 
 func main() {
-	reqBody := OllamaRequest{
+	reqBody := OllamaRequestIntel{
 		Model: "llama3", // or whatever model you pulled
 		Prompt: "What is the current stock price of Intel (ticker INTC) in US dollars? " +
 			"Only output the number (no currency symbol, no words).",
@@ -37,7 +37,7 @@ func main() {
 	}
 	defer resp.Body.Close()
 
-	var result OllamaResponse
+	var result OllamaResponseIntel
 	if err := json.NewDecoder(resp.Body).Decode(&result); err != nil {
 		panic(err)
 	}
